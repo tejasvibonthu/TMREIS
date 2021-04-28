@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-TMREIS/Pods-TMREIS-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework
+${BUILT_PRODUCTS_DIR}/SwipeMenuViewController/SwipeMenuViewController.framework
