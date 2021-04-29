@@ -12,6 +12,9 @@ class CitizenDashboardFormVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "TMREIS"
+        navigationItem.backButtonTitle = ""
+        self.navigationController?.navigationBar.backItem?.title = " "
         webView.translatesAutoresizingMaskIntoConstraints = false
              self.view.addSubview(self.webView)
           // You can set constant space for Left, Right, Top and Bottom Anchors
@@ -26,15 +29,16 @@ class CitizenDashboardFormVC: UIViewController {
               self.webView.load(request)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = false
+        navigationItem.backButtonTitle = ""
+        self.navigationController?.navigationBar.backItem?.title = " "
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
     }
-    */
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+        navigationItem.backButtonTitle = ""
+        self.navigationController?.navigationBar.backItem?.title = " "
 
+    }
 }

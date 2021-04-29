@@ -9,5 +9,6 @@ target 'TMREIS' do
   pod 'Alamofire'
   pod 'PKHUD'
   pod 'SwipeMenuViewController'
+  pod 'SideMenuSwift'
 
 end

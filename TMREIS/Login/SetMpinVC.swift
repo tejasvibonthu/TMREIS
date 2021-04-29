@@ -22,6 +22,8 @@ class SetMpinVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.navigationItem.hidesBackButton = true
+
         self.setupMPINTextfields()
     }
  

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 enum storyboards:String {
-    case Main,Login,Dashboard
+    case Main,Login,Dashboard,Officer
     var instance : UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: Bundle.main)
     }

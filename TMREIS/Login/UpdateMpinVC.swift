@@ -14,6 +14,7 @@ class UpdateMpinVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
+
         setupMpinStackView()
         
     }
@@ -37,8 +38,18 @@ class UpdateMpinVC: UIViewController {
     
     @IBAction func mpinValidateBtnClick(_ sender: Any) {
        // self.validateMpinWS()
-        let vc = storyboards.Dashboard.instance.instantiateViewController(withIdentifier: "CitizenDashboardVC") as! CitizenDashboardVC
-        self.navigationController?.pushViewController(vc, animated: true)
+        print(UserDefaultVars.isCitizen)
+        if UserDefaultVars.isCitizen == true {
+            let vc = storyboards.Dashboard.instance.instantiateViewController(withIdentifier: "CitizenDashboardVC") as! CitizenDashboardVC
+            self.navigationController?.pushViewController(vc, animated: true)
+    } else {
+
+        guard let vc = UIStoryboard(name: "Officer", bundle: nil).instantiateInitialViewController()else{return}
+
+        self.view.window?.rootViewController = vc
+        self.view.window?.becomeKey()
+        self.view.window?.makeKeyAndVisible()
+    }
     }
 //    func validateMpinWS(){
 //        let mpin = self.mpinstackView.getOTP().AESEncryption()

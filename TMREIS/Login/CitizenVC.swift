@@ -8,7 +8,7 @@
 import UIKit
 
 class CitizenVC: UIViewController {
-
+    var iscitizen:Bool = true
     @IBOutlet weak var mobileNumberTF: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +18,9 @@ class CitizenVC: UIViewController {
 
 
     @IBAction func loginbtnClick(_ sender: Any) {
+        iscitizen = true
+        UserDefaults.standard.setValue(iscitizen, forKey: "isCitizen")
+        UserDefaultVars.isCitizen = iscitizen
 //       if  loginValidationswithmobileNo(){
 //            //self.citizenLogin()
 //        }

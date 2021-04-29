@@ -25,13 +25,15 @@
 		652B92752637E71200DD5DB0 /* OfficerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652B92742637E71200DD5DB0 /* OfficerVC.swift */; };
 		652B92852637FA1100DD5DB0 /* Dashboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 652B92842637FA1100DD5DB0 /* Dashboard.storyboard */; };
 		652B92882637FA3F00DD5DB0 /* CitizenDashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652B92872637FA3F00DD5DB0 /* CitizenDashboardVC.swift */; };
-		652B928C2637FA5E00DD5DB0 /* OfficerDashboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652B928B2637FA5E00DD5DB0 /* OfficerDashboardVC.swift */; };
 		652B928F26380B7600DD5DB0 /* OtpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652B928E26380B7600DD5DB0 /* OtpVC.swift */; };
 		652B929226380B8600DD5DB0 /* SetMpinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652B929126380B8600DD5DB0 /* SetMpinVC.swift */; };
 		652B929526380B9900DD5DB0 /* UpdateMpinVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652B929426380B9900DD5DB0 /* UpdateMpinVC.swift */; };
 		652B9298263821A900DD5DB0 /* OTPStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652B9297263821A900DD5DB0 /* OTPStackView.swift */; };
 		652B929B2638221900DD5DB0 /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652B929A2638221900DD5DB0 /* OTPTextField.swift */; };
 		652B929E26382C5E00DD5DB0 /* CitizenDashboardFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652B929D26382C5E00DD5DB0 /* CitizenDashboardFormVC.swift */; };
+		6545CB3D263AB63800DDECAE /* Officer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6545CB3C263AB63800DDECAE /* Officer.storyboard */; };
+		6545CB40263AB6F600DDECAE /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6545CB3F263AB6F600DDECAE /* HomeVC.swift */; };
+		6545CB43263AB70400DDECAE /* MenuVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6545CB42263AB70400DDECAE /* MenuVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,13 +58,15 @@
 		652B92742637E71200DD5DB0 /* OfficerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficerVC.swift; sourceTree = "<group>"; };
 		652B92842637FA1100DD5DB0 /* Dashboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Dashboard.storyboard; sourceTree = "<group>"; };
 		652B92872637FA3F00DD5DB0 /* CitizenDashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitizenDashboardVC.swift; sourceTree = "<group>"; };
-		652B928B2637FA5E00DD5DB0 /* OfficerDashboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfficerDashboardVC.swift; sourceTree = "<group>"; };
 		652B928E26380B7600DD5DB0 /* OtpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtpVC.swift; sourceTree = "<group>"; };
 		652B929126380B8600DD5DB0 /* SetMpinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMpinVC.swift; sourceTree = "<group>"; };
 		652B929426380B9900DD5DB0 /* UpdateMpinVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateMpinVC.swift; sourceTree = "<group>"; };
 		652B9297263821A900DD5DB0 /* OTPStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPStackView.swift; sourceTree = "<group>"; };
 		652B929A2638221900DD5DB0 /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		652B929D26382C5E00DD5DB0 /* CitizenDashboardFormVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitizenDashboardFormVC.swift; sourceTree = "<group>"; };
+		6545CB3C263AB63800DDECAE /* Officer.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Officer.storyboard; sourceTree = "<group>"; };
+		6545CB3F263AB6F600DDECAE /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		6545CB42263AB70400DDECAE /* MenuVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuVC.swift; sourceTree = "<group>"; };
 		C72A5A843DCFFDB81F60B966 /* Pods-TMREIS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMREIS.debug.xcconfig"; path = "Target Support Files/Pods-TMREIS/Pods-TMREIS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,7 +111,8 @@
 		652219442636DF54006B8533 /* TMREIS */ = {
 			isa = PBXGroup;
 			children = (
-				652B92832637F9F600DD5DB0 /* Dashboard */,
+				6545CB3B263AB61A00DDECAE /* OfficerDashboard */,
+				652B92832637F9F600DD5DB0 /* CitizenDashboard */,
 				652B925B2637D99F00DD5DB0 /* NetworkManager */,
 				652B92502637D65500DD5DB0 /* Utilities */,
 				652B92252637D1DD00DD5DB0 /* Login */,
@@ -157,15 +162,24 @@
 			path = NetworkManager;
 			sourceTree = "<group>";
 		};
-		652B92832637F9F600DD5DB0 /* Dashboard */ = {
+		652B92832637F9F600DD5DB0 /* CitizenDashboard */ = {
 			isa = PBXGroup;
 			children = (
 				652B92842637FA1100DD5DB0 /* Dashboard.storyboard */,
 				652B92872637FA3F00DD5DB0 /* CitizenDashboardVC.swift */,
-				652B928B2637FA5E00DD5DB0 /* OfficerDashboardVC.swift */,
 				652B929D26382C5E00DD5DB0 /* CitizenDashboardFormVC.swift */,
 			);
-			path = Dashboard;
+			path = CitizenDashboard;
+			sourceTree = "<group>";
+		};
+		6545CB3B263AB61A00DDECAE /* OfficerDashboard */ = {
+			isa = PBXGroup;
+			children = (
+				6545CB3C263AB63800DDECAE /* Officer.storyboard */,
+				6545CB3F263AB6F600DDECAE /* HomeVC.swift */,
+				6545CB42263AB70400DDECAE /* MenuVC.swift */,
+			);
+			path = OfficerDashboard;
 			sourceTree = "<group>";
 		};
 		B0DD5D1504B7CC6DC309D4A7 /* Pods */ = {
@@ -241,6 +255,7 @@
 				652219522636DF54006B8533 /* LaunchScreen.storyboard in Resources */,
 				6522194F2636DF54006B8533 /* Assets.xcassets in Resources */,
 				6522194D2636DF54006B8533 /* Main.storyboard in Resources */,
+				6545CB3D263AB63800DDECAE /* Officer.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				652B926C2637DD4700DD5DB0 /* Router.swift in Sources */,
+				6545CB40263AB6F600DDECAE /* HomeVC.swift in Sources */,
 				652B92302637D5A500DD5DB0 /* Constants.swift in Sources */,
 				6522194A2636DF54006B8533 /* ViewController.swift in Sources */,
 				652B92752637E71200DD5DB0 /* OfficerVC.swift in Sources */,
@@ -304,11 +320,11 @@
 				652B926F2637DED100DD5DB0 /* Reachability.swift in Sources */,
 				652B92522637D67000DD5DB0 /* Stroryboard.swift in Sources */,
 				652B928F26380B7600DD5DB0 /* OtpVC.swift in Sources */,
-				652B928C2637FA5E00DD5DB0 /* OfficerDashboardVC.swift in Sources */,
 				652B92272637D1F700DD5DB0 /* SigninSwipeupVC.swift in Sources */,
 				652219482636DF54006B8533 /* SceneDelegate.swift in Sources */,
 				652B92882637FA3F00DD5DB0 /* CitizenDashboardVC.swift in Sources */,
 				652B9298263821A900DD5DB0 /* OTPStackView.swift in Sources */,
+				6545CB43263AB70400DDECAE /* MenuVC.swift in Sources */,
 				652B929526380B9900DD5DB0 /* UpdateMpinVC.swift in Sources */,
 				652B929226380B8600DD5DB0 /* SetMpinVC.swift in Sources */,
 				652B92722637E6FF00DD5DB0 /* CitizenVC.swift in Sources */,

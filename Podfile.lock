@@ -1,24 +1,28 @@
 PODS:
   - Alamofire (5.4.3)
   - PKHUD (5.3.0)
+  - SideMenuSwift (2.0.7)
   - SwipeMenuViewController (4.1.0)
 
 DEPENDENCIES:
   - Alamofire
   - PKHUD
+  - SideMenuSwift
   - SwipeMenuViewController
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - PKHUD
+    - SideMenuSwift
     - SwipeMenuViewController
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
+  SideMenuSwift: ffbbc88d23741932177ad1320df837cedfb3bc5e
   SwipeMenuViewController: 94fac81cc192d9f08f218fe4c0c853569b735e1f
 
-PODFILE CHECKSUM: cd47be4dc0bdd58243bfae5c62c88fed1d3c1503
+PODFILE CHECKSUM: 8ca766c3b9ef9a8c06a1c773c44302a7c85ecf83
 
 COCOAPODS: 1.10.1

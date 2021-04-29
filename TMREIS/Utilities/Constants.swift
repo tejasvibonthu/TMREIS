@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 struct UserDefaultVars {
     static var RolesArray : [String] = []
-    static var empRefID = UserDefaults.standard.value(forKey: "empRefID") as? Int
+    static var isCitizen = UserDefaults.standard.value(forKey: "iscitizen") as? Bool
 //    static var deviceID = UIDevice.current.identifierForVendor?.uuidString
 //    static var ImeiNo = UIDevice.current.identifierForVendor?.uuidString
 //    static var empID = UserDefaults.standard.value(forKey: "empID") as! String

@@ -15,6 +15,8 @@ class OtpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.navigationItem.hidesBackButton = true
+
 
     }
     
@@ -22,19 +24,21 @@ class OtpVC: UIViewController {
     }
     
     @IBAction func submitBtnClick(_ sender: Any) {
-        if self.otpTF.text?.count == 6
-        {
-            if(self.otp == otpTF.text){
-                //print (otpstackView.getOTP())
-                
-                let vc = storyboards.Login.instance.instantiateViewController(withIdentifier: "SetMpinVC") as! SetMpinVC
-                self.navigationController?.pushViewController(vc, animated: true)
-            } else{
-                self.showAlert(message: "Entered otp is wrong")
-            }
-        }else{
-            self.showAlert(message: "Please Enter 6 digit otp")
-        }
+        let vc = storyboards.Login.instance.instantiateViewController(withIdentifier: "SetMpinVC") as! SetMpinVC
+        self.navigationController?.pushViewController(vc, animated: true)
+//        if self.otpTF.text?.count == 6
+//        {
+//            if(self.otp == otpTF.text){
+//                //print (otpstackView.getOTP())
+//
+//                let vc = storyboards.Login.instance.instantiateViewController(withIdentifier: "SetMpinVC") as! SetMpinVC
+//                self.navigationController?.pushViewController(vc, animated: true)
+//            } else{
+//                self.showAlert(message: "Entered otp is wrong")
+//            }
+//        }else{
+//            self.showAlert(message: "Please Enter 6 digit otp")
+//        }
         
     }
     //MARK:- Service Calls
