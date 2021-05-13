@@ -38,7 +38,7 @@ class UpdateMpinVC: UIViewController {
     
     @IBAction func mpinValidateBtnClick(_ sender: Any) {
        // self.validateMpinWS()
-        print(UserDefaultVars.isCitizen)
+      //  print(UserDefaultVars.isCitizen)
         if UserDefaultVars.isCitizen == true {
             let vc = storyboards.Dashboard.instance.instantiateViewController(withIdentifier: "CitizenDashboardVC") as! CitizenDashboardVC
             self.navigationController?.pushViewController(vc, animated: true)
@@ -51,51 +51,54 @@ class UpdateMpinVC: UIViewController {
         self.view.window?.makeKeyAndVisible()
     }
     }
-//    func validateMpinWS(){
-//        let mpin = self.mpinstackView.getOTP().AESEncryption()
-//guard Reachability.isConnectedToNetwork() else {self.showFailureAlert(message: noInternet);return}
-//        NetworkRequest.makeRequest(type: mpinValidation.self, urlRequest: Router.validateMpin(userId: self.userId ?? "", mpin: mpin ?? "", fcmToken: UserDefaultVars.fcmKey ?? "")) { [weak self](result) in
-//
-//            switch result{
-//            case .success(let data):
-//               // self?.mpinmodel = data
-//                print(data)
-//                guard let statusCode = data.status_Code else {return}
-//
-//                switch statusCode {
-//                case 200:
-//                    UserDefaultVars.RolesArray = data.data ?? []
-//
-//                        guard let vc = UIStoryboard(name: "Home", bundle: nil).instantiateInitialViewController()else{return}
-//
-//                        self?.view.window?.rootViewController = vc
-//                        self?.view.window?.becomeKey()
-//                        self?.view.window?.makeKeyAndVisible()
-//                case 201:
-//                    //  print("worklog not submitted")
-//                    self?.showFailureAlert(message: data.status_Message ?? serverNotResponding)
-//                case 401:
-//                    self?.showFailureAlert(message: "Session Expired , Please login again!", okCompletion: {
-//                        let vc = storyboards.Main.instance.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-//                        let navCOntroller = UINavigationController(rootViewController: vc)
-//                        navCOntroller.navigationBar.isHidden = true
-//                        self?.view.window?.rootViewController = navCOntroller
-//                        self?.view.window?.becomeKey()
-//                         self?.view.window?.makeKeyAndVisible()
-//                    })
-//
-//                default:
-//                    print("default")
-//                    self?.showFailureAlert(message: serverNotResponding)
-//
-//                }
-//            // print(attendanceInfo)
-//            case .failure(let _err):
-//                print(_err)
-//                self?.showFailureAlert(message: serverNotResponding)
-//            }
-//        }
-//    }
+    func validateMpinWS(){
+       let mpin = self.mpinstackView.getOTP().AESEncryption()
+       guard Reachability.isConnectedToNetwork() else {self.showAlert(message: noInternet);return}
+        NetworkRequest.makeRequest(type: mpinValidation.self, urlRequest: Router.validateMpin(userId: UserDefaultVars.userid ?? "", mpin: mpin ?? "", fcmToken: UserDefaultVars.fcmToken ?? "")) { [weak self](result) in
+
+            switch result{
+            case .success(let data):
+               // self?.mpinmodel = data
+                print(data)
+                guard let statusCode = data.status_Code else {return}
+
+                switch statusCode {
+                case 200:
+                    UserDefaultVars.RolesArray = data.data ?? []
+                    if UserDefaultVars.isCitizen == true {
+                        let vc = storyboards.Dashboard.instance.instantiateViewController(withIdentifier: "CitizenDashboardVC") as! CitizenDashboardVC
+                        self?.navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    guard let vc = UIStoryboard(name: "Officer", bundle: nil).instantiateInitialViewController()else{return}
+                    self?.view.window?.rootViewController = vc
+                    self?.view.window?.becomeKey()
+                    self?.view.window?.makeKeyAndVisible()
+                }
+                case 201:
+                    //  print("worklog not submitted")
+                    self?.showAlert(message: data.status_Message ?? serverNotResponding)
+                case 401:
+                    self?.showAlert(message: "Session Expired , Please login again!", completion: {
+                        let vc = storyboards.Main.instance.instantiateViewController(withIdentifier: "SigninSwipeupVC") as! SigninSwipeupVC
+                        let navCOntroller = UINavigationController(rootViewController: vc)
+                        navCOntroller.navigationBar.isHidden = true
+                        self?.view.window?.rootViewController = navCOntroller
+                        self?.view.window?.becomeKey()
+                         self?.view.window?.makeKeyAndVisible()
+                    })
+
+                default:
+                    print("default")
+                    self?.showAlert(message: serverNotResponding)
+
+                }
+            // print(attendanceInfo)
+            case .failure(let _err):
+                print(_err)
+                self?.showAlert(message: serverNotResponding)
+            }
+        }
+    }
 //    func forgotMpinWS(){
  //   guard Reachability.isConnectedToNetwork() else {self.showFailureAlert(message: noInternet);return}
 //        NetworkRequest.makeRequest(type:Mpinmodel.self, urlRequest: Router.forgotMpin(userName: UserDefaultVars.username, mpin: UserDefaultVars.mpin), completion: { [weak self](result) in
@@ -135,5 +138,24 @@ class UpdateMpinVC: UIViewController {
 //
 //        })
 //    }
+
+}
+struct mpinValidation : Codable {
+    let success : Bool?
+    let status_Message : String?
+    let status_Code : Int?
+    let data : [String]?
+    let paginated : Bool?
+
+    enum CodingKeys: String, CodingKey {
+
+        case success = "success"
+        case status_Message = "status_Message"
+        case status_Code = "status_Code"
+        case data = "data"
+        case paginated = "paginated"
+    }
+
+    
 
 }

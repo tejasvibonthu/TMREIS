@@ -10,5 +10,10 @@ target 'TMREIS' do
   pod 'PKHUD'
   pod 'SwipeMenuViewController'
   pod 'SideMenuSwift'
+  pod 'IQKeyboardManagerSwift'
+  pod 'SDWebImage' 
+  pod 'Floaty', '~> 4.2.0'
+
+
 
 end

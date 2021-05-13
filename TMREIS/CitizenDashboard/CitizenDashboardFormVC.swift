@@ -25,7 +25,7 @@ class CitizenDashboardFormVC: UIViewController {
                                   self.webView.topAnchor.constraint(equalTo: self.view.topAnchor),
                                   ])
               self.view.setNeedsLayout()
-        var request = URLRequest(url: URL.init(string: "https://tmreis.cgg.gov.in/Login.do")!)
+        let request = URLRequest(url: URL.init(string: "https://tmreis.cgg.gov.in/Login.do")!)
               self.webView.load(request)
     }
     

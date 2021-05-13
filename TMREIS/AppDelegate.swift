@@ -7,6 +7,9 @@
 
 import UIKit
 import SideMenuSwift
+import IQKeyboardManagerSwift
+import UserNotifications
+
 
 @available(iOS 13.0, *)
 @available(iOS 13.0, *)
@@ -18,6 +21,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        IQKeyboardManager.shared.enable = true
+
         setupSidememu()
         return true
     }
@@ -47,3 +52,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+//@available(iOS 13.0, *)
+//extension AppDelegate : MessagingDelegate , UNUserNotificationCenterDelegate
+//{
+//    
+//    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+//        print("fcm token :- \(fcmToken)")
+//        guard let fcmToken = fcmToken else { UserDefaults.standard.setValue(" ", forKey: "fcmToken");return}
+//        UserDefaults.standard.setValue(fcmToken, forKey: "fcmToken")
+//    }
+//    
+////    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+////        print(remoteMessage)
+////    }
+//    
+//    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+//        completionHandler([.alert , .badge , .sound])
+//    }
+//    
+//}

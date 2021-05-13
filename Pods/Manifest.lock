@@ -1,28 +1,42 @@
 PODS:
   - Alamofire (5.4.3)
+  - Floaty (4.2.0)
+  - IQKeyboardManagerSwift (6.5.6)
   - PKHUD (5.3.0)
+  - SDWebImage (5.11.1):
+    - SDWebImage/Core (= 5.11.1)
+  - SDWebImage/Core (5.11.1)
   - SideMenuSwift (2.0.7)
   - SwipeMenuViewController (4.1.0)
 
 DEPENDENCIES:
   - Alamofire
+  - Floaty (~> 4.2.0)
+  - IQKeyboardManagerSwift
   - PKHUD
+  - SDWebImage
   - SideMenuSwift
   - SwipeMenuViewController
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Floaty
+    - IQKeyboardManagerSwift
     - PKHUD
+    - SDWebImage
     - SideMenuSwift
     - SwipeMenuViewController
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  Floaty: e2bd5a0f6f7f70899e26ff2da31081c8bee8d1b0
+  IQKeyboardManagerSwift: c7df9d2deb356c04522f5c4b7b6e4ce4d8ed94fe
   PKHUD: 98f3e4bc904b9c916f1c5bb6d765365b5357291b
+  SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SideMenuSwift: ffbbc88d23741932177ad1320df837cedfb3bc5e
   SwipeMenuViewController: 94fac81cc192d9f08f218fe4c0c853569b735e1f
 
-PODFILE CHECKSUM: 8ca766c3b9ef9a8c06a1c773c44302a7c85ecf83
+PODFILE CHECKSUM: dc56889fa836db6bc80c43637cc0636544425a32
 
 COCOAPODS: 1.10.1

@@ -17,6 +17,12 @@ class SigninSwipeupVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
+        let fcmKey = "frfdtk1Kc4Y:APA91bF3hhY6xO2POWpga"
+        UserDefaults.standard.set(fcmKey , forKey: "fcmKey")
+
+        
+        UserDefaultVars.fcmToken = fcmKey
+
         self.swipeMenuSetup()
     }
     func swipeMenuSetup()
