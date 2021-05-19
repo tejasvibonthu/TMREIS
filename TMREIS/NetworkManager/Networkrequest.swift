@@ -37,8 +37,8 @@ class NetworkRequest
             DispatchQueue.main.async {
                 self.hideLoading()
             }
-          //  print(response)
-         //   print(try! JSONSerialization.jsonObject(with: response.data!, options: .allowFragments))
+            print(response)
+          //  print(try! JSONSerialization.jsonObject(with: response.data!, options: .allowFragments))
             guard let data = response.data, response.error == nil else {
 
                 if let error = response.error as NSError? {
@@ -124,53 +124,53 @@ class NetworkRequest
 //    }
 }
 
-enum NetworkError1: Error {
-    case domainError(_ msg : Error)
-    case decodingError(_ msg : Error)
-}
-enum HTTPMethod : String
-{
-    case get = "GET"
-    case post = "POST"
-}
-class NetworkManager
-{
-    class func makeRequest<T : Codable>(type : T.Type , method : HTTPMethod,parameters : [String : Any]?, url : URL ,encoding : JSONEncoding, completion : @escaping (Swift.Result<T , NetworkError1>)->())
-    {
-        var urlRequest = URLRequest(url: url)
-        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        switch method
-        {
-        case .get :
-            print("get")
-            urlRequest.httpMethod = "GET"
-        case .post :
-            if let parameters = parameters
-            {
-                if let jsondata = try? JSONSerialization.data(withJSONObject: parameters, options: .fragmentsAllowed)
-                {
-                    urlRequest.httpMethod = "POST"
-                    urlRequest.httpBody = jsondata
-                   // urlRequest.addValue(UserDefaultVars.token!, forHTTPHeaderField:"Auth_token")
-                    print(urlRequest)
-                }
-            }
-            print("post method")
-        }
-        let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
-            guard let data = data, error == nil else {
-                if let error = error as NSError?, error.domain == NSURLErrorDomain {
-                                        completion(.failure(.domainError(error)))
-                }
-                return
-            }
-            do {
-                let modelData = try JSONDecoder().decode(T.self, from: data)
-                completion(.success(modelData))
-            } catch let err{
-                completion(.failure(.decodingError(err)))
-            }
-        }
-        task.resume()
-    }
-}
+//enum NetworkError1: Error {
+//    case domainError(_ msg : Error)
+//    case decodingError(_ msg : Error)
+//}
+//enum HTTPMethod : String
+//{
+//    case get = "GET"
+//    case post = "POST"
+//}
+//class NetworkManager
+//{
+//    class func makeRequest<T : Codable>(type : T.Type , method : HTTPMethod,parameters : [String : Any]?, url : URL ,encoding : JSONEncoding, completion : @escaping (Swift.Result<T , NetworkError1>)->())
+//    {
+//        var urlRequest = URLRequest(url: url)
+//        urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//        switch method
+//        {
+//        case .get :
+//            print("get")
+//            urlRequest.httpMethod = "GET"
+//        case .post :
+//            if let parameters = parameters
+//            {
+//                if let jsondata = try? JSONSerialization.data(withJSONObject: parameters, options: .fragmentsAllowed)
+//                {
+//                    urlRequest.httpMethod = "POST"
+//                    urlRequest.httpBody = jsondata
+//                   // urlRequest.addValue(UserDefaultVars.token!, forHTTPHeaderField:"Auth_token")
+//                    print(urlRequest)
+//                }
+//            }
+//            print("post method")
+//        }
+//        let task = URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
+//            guard let data = data, error == nil else {
+//                if let error = error as NSError?, error.domain == NSURLErrorDomain {
+//                                        completion(.failure(.domainError(error)))
+//                }
+//                return
+//            }
+//            do {
+//                let modelData = try JSONDecoder().decode(T.self, from: data)
+//                completion(.success(modelData))
+//            } catch let err{
+//                completion(.failure(.decodingError(err)))
+//            }
+//        }
+//        task.resume()
+//    }
+//}

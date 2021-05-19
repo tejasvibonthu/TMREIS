@@ -11,61 +11,61 @@ class OtpVC: UIViewController {
 
     @IBOutlet weak var otpTF: UITextField!
     @IBOutlet weak var mobilenoLb: UILabel!
-    var otp = "111111"
+    var otp:String?
+    var mobileNumber:String?
+    var model:LoginModel?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
         self.navigationController?.navigationItem.hidesBackButton = true
-
-
     }
-    
     @IBAction func resendotpBtnClick(_ sender: Any) {
+        self.LoginWSwithUserName()
     }
-    
     @IBAction func submitBtnClick(_ sender: Any) {
-        let vc = storyboards.Login.instance.instantiateViewController(withIdentifier: "SetMpinVC") as! SetMpinVC
-        self.navigationController?.pushViewController(vc, animated: true)
-//        if self.otpTF.text?.count == 6
-//        {
-//            if(self.otp == otpTF.text){
-//                //print (otpstackView.getOTP())
-//
-//                let vc = storyboards.Login.instance.instantiateViewController(withIdentifier: "SetMpinVC") as! SetMpinVC
-//                self.navigationController?.pushViewController(vc, animated: true)
-//            } else{
-//                self.showAlert(message: "Entered otp is wrong")
-//            }
-//        }else{
-//            self.showAlert(message: "Please Enter 6 digit otp")
-//        }
-        
+//        let vc = storyboards.Login.instance.instantiateViewController(withIdentifier: "SetMpinVC") as! SetMpinVC
+//        self.navigationController?.pushViewController(vc, animated: true)
+        if self.otpTF.text?.count == 6
+        {
+            if(self.otp == otpTF.text){
+                //print (otpstackView.getOTP())
+
+                let vc = storyboards.Login.instance.instantiateViewController(withIdentifier: "SetMpinVC") as! SetMpinVC
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else{
+                self.showAlert(message: "Entered otp is wrong")
+            }
+        }else{
+            self.showAlert(message: "Please Enter 6 digit otp")
+        }
     }
     //MARK:- Service Calls
-//    func LoginWSwithUserName() {
-//       // print(UserDefaultVars.username , password)
-   // guard Reachability.isConnectedToNetwork() else {self.showFailureAlert(message: noInternet);return}
-//        NetworkRequest.makeRequest(type: LoginModel.self, urlRequest: Router.login(username:username?.AESEncryption() ?? "", password: password?.AESEncryption() ?? "", deviceId: UserDefaultVars.deviceID ?? "", IMEI: UserDefaultVars.deviceID ?? "",fcmToken: UserDefaultVars.fcmKey ?? "", deviceType: "IOS"), completion: { [weak self](result) in
-//               switch result{
-//               case  .success(let data):
-//                   self?.model = data
-//                   let statuscode = data.status_Code
-//                   let mpin = data.data?.mpin
-//                   let userName = data.data?.userName
-//                   UserDefaults.standard.set(userName, forKey:"userName")
-//                   if statuscode == 200 && mpin == "00" {
-//                        self?.showSuccessAlert(message: data.status_Message ?? "")
-//                        self?.otp = data.data?.otpMobile
-//                   } else{
-//                    self?.showFailureAlert(message: data.status_Message ?? serverNotResponding)
-//                }
-//               case .failure(let err):
-//                   print(err)
-//                   self?.showFailureAlert(message: serverNotResponding)
-//
-//               }
-//
-//           })
-//
-//       }
+    func LoginWSwithUserName() {
+       // print(UserDefaultVars.username , password)
+        guard let mobileNumberIs = mobileNumber?.AESEncryption() else {return}
+
+    guard Reachability.isConnectedToNetwork() else {self.showAlert(message: noInternet);return}
+        NetworkRequest.makeRequest(type: LoginModel.self, urlRequest: Router.loginWithMobileNo(mobileNumber: mobileNumberIs , deviceId: UserDefaultVars.deviceID ?? "", IMEI: UserDefaultVars.deviceID ?? "", fcmToken: UserDefaultVars.fcmToken ?? "", deviceType: "IOS"), completion: { [weak self](result) in
+               switch result{
+               case  .success(let data):
+                   self?.model = data
+                   let statuscode = data.statusCode
+                   let mpin = data.data.mpin
+                let userName = data.data.userName
+                   UserDefaults.standard.set(userName, forKey:"userName")
+                   if statuscode == 200 && mpin == "00" {
+                        self?.showAlert(message: data.statusMessage)
+                        self?.otp = data.data.otpMobile
+                   } else{
+                    self?.showAlert(message: data.statusMessage)
+                }
+               case .failure(let err):
+                   print(err)
+                   self?.showAlert(message: serverNotResponding)
+
+               }
+
+           })
+
+       }
 }

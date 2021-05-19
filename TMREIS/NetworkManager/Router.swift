@@ -25,7 +25,7 @@ let DEMO = 3
 let DEV  = 4
 let LOC  = 5
 
-var ENV = 5
+var ENV = 3
 
 
 let urlRequestTimeOutInterval = 30.0
@@ -41,7 +41,7 @@ func baseUrl1() -> String {
     } else if ENV == STAG { // staging
         return   ""
     } else if ENV == DEMO { // Testing
-        return ""
+        return "http://uat2.cgg.gov.in/tmreis/api/web/"
     } else if ENV == DEV { // Development
         return ""
     } else { // Local Server
@@ -66,7 +66,7 @@ func getVersion() -> String
 enum Router:URLRequestConvertible{
   //  case login(username : String , password : String, deviceId: String, IMEI: String,fcmToken: String ,deviceType:String)
     case versionCheck
-    case loginWithMobileNo(mobileNumber : String,password:String,userName:String,deviceId: String, IMEI: String, fcmToken: String,deviceType: String)
+    case loginWithMobileNo(mobileNumber : String,deviceId: String, IMEI: String, fcmToken: String,deviceType: String)
     case validateMpin(userId:String, mpin:String , fcmToken:String)
     case getContactDetails
    // case genearteMpin(userName: String, mpin:String)
@@ -80,7 +80,7 @@ enum Router:URLRequestConvertible{
 //            return .post
         //loginWithMobileNumber
         case .loginWithMobileNo  :
-            return .post
+            return .get
         //GenerateMpin
 //        case .genearteMpin:
 //            return .get
@@ -103,7 +103,7 @@ enum Router:URLRequestConvertible{
 //            return "web/userVerification"
         //loginWithMobileNumber
         case .loginWithMobileNo:
-            return "api/web/userVerification"
+            return "userVerification"
         // generatempin
 //        case .genearteMpin:
 //            return "updatingMpin/webApp"
@@ -113,7 +113,7 @@ enum Router:URLRequestConvertible{
         case .versionCheck:
             return "api/web/getCurrentAppVersion"
         case .validateMpin:
-            return "api/web/mpinVerification"
+            return "mpinVerification"
         case .getContactDetails:
             return "api/web/getStaffContactDetails"
         }
@@ -138,30 +138,30 @@ enum Router:URLRequestConvertible{
 //            urlRequest = try JSONEncoding.default.encode(urlRequest)
 //            print(urlRequest)
         //loginWithMobileNumber
-        case .loginWithMobileNo (let mobileNumber , let password, let userName, let deviceId , let IMEI,let fcmToken, let deviceType):
+        case .loginWithMobileNo (let mobileNumber ,  let deviceId , let IMEI,let fcmToken, let deviceType):
             let pathString = path
             urlRequest = URLRequest(url: url.appendingPathComponent(pathString))
             urlRequest.setValue(mobileNumber, forHTTPHeaderField: "mobileNumber")
-            urlRequest.setValue(password, forHTTPHeaderField: "password")
-            urlRequest.setValue(userName, forHTTPHeaderField: "username")
             urlRequest.setValue(deviceId, forHTTPHeaderField: "deviceId")
             urlRequest.setValue(IMEI, forHTTPHeaderField: "IMEI")
             urlRequest.setValue(fcmToken, forHTTPHeaderField: "fcmToken")
             urlRequest.setValue(deviceType, forHTTPHeaderField: "deviceType")
             urlRequest.httpMethod = method.rawValue
             urlRequest = try JSONEncoding.default.encode(urlRequest)
+            print(urlRequest)
         case .validateMpin(let userId, let mpin, let fcmToken) :
             let pathString = path
             urlRequest = URLRequest(url: url.appendingPathComponent(pathString))
             urlRequest.httpMethod = method.rawValue
-          //  guard let token = UserDefaults.standard.value(forKey: "token") as? String else {fatalError("token not availabel")}
-            //  print("token :- \(token)")
-          //  urlRequest.setValue(token, forHTTPHeaderField:"Auth_Token")
+            guard let token = UserDefaults.standard.value(forKey: "token") as? String else {fatalError("token not availabel")}
+              print("token :- \(token)")
+            urlRequest.setValue(token, forHTTPHeaderField:"Auth_Token")
             urlRequest.setValue(userId, forHTTPHeaderField:"userId")
             urlRequest.setValue(mpin, forHTTPHeaderField:"mpin")
             urlRequest.setValue(fcmToken, forHTTPHeaderField: "fcmToken")
             urlRequest.setValue("IOS", forHTTPHeaderField: "deviceType")
             urlRequest = try JSONEncoding.default.encode(urlRequest)
+            print(urlRequest)
             
         //generatempin
 //        case .genearteMpin(let userName,let mpin):

@@ -14,9 +14,7 @@ class UpdateMpinVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.isNavigationBarHidden = true
-
         setupMpinStackView()
-        
     }
     func setupMpinStackView()
     {
@@ -37,19 +35,21 @@ class UpdateMpinVC: UIViewController {
     }
     
     @IBAction func mpinValidateBtnClick(_ sender: Any) {
-       // self.validateMpinWS()
+        self.validateMpinWS()
       //  print(UserDefaultVars.isCitizen)
-        if UserDefaultVars.isCitizen == true {
-            let vc = storyboards.Dashboard.instance.instantiateViewController(withIdentifier: "CitizenDashboardVC") as! CitizenDashboardVC
-            self.navigationController?.pushViewController(vc, animated: true)
-    } else {
-
-        guard let vc = UIStoryboard(name: "Officer", bundle: nil).instantiateInitialViewController()else{return}
-
-        self.view.window?.rootViewController = vc
-        self.view.window?.becomeKey()
-        self.view.window?.makeKeyAndVisible()
-    }
+//
+//        if UserDefaultVars.isCitizen == true {
+//            self.validateMpinWS()
+////            let vc = storyboards.Dashboard.instance.instantiateViewController(withIdentifier: "CitizenDashboardVC") as! CitizenDashboardVC
+////            self.navigationController?.pushViewController(vc, animated: true)
+//    } else {
+//
+//        guard let vc = UIStoryboard(name: "Officer", bundle: nil).instantiateInitialViewController()else{return}
+//
+//        self.view.window?.rootViewController = vc
+//        self.view.window?.becomeKey()
+//        self.view.window?.makeKeyAndVisible()
+//    }
     }
     func validateMpinWS(){
        let mpin = self.mpinstackView.getOTP().AESEncryption()
@@ -60,11 +60,10 @@ class UpdateMpinVC: UIViewController {
             case .success(let data):
                // self?.mpinmodel = data
                 print(data)
-                guard let statusCode = data.status_Code else {return}
-
+                 let statusCode = data.statusCode
                 switch statusCode {
                 case 200:
-                    UserDefaultVars.RolesArray = data.data ?? []
+                    UserDefaultVars.RolesArray = data.data.role
                     if UserDefaultVars.isCitizen == true {
                         let vc = storyboards.Dashboard.instance.instantiateViewController(withIdentifier: "CitizenDashboardVC") as! CitizenDashboardVC
                         self?.navigationController?.pushViewController(vc, animated: true)
@@ -76,7 +75,7 @@ class UpdateMpinVC: UIViewController {
                 }
                 case 201:
                     //  print("worklog not submitted")
-                    self?.showAlert(message: data.status_Message ?? serverNotResponding)
+                    self?.showAlert(message: data.statusMessage )
                 case 401:
                     self?.showAlert(message: "Session Expired , Please login again!", completion: {
                         let vc = storyboards.Main.instance.instantiateViewController(withIdentifier: "SigninSwipeupVC") as! SigninSwipeupVC
@@ -141,21 +140,22 @@ class UpdateMpinVC: UIViewController {
 
 }
 struct mpinValidation : Codable {
-    let success : Bool?
-    let status_Message : String?
-    let status_Code : Int?
-    let data : [String]?
-    let paginated : Bool?
+    let success: Bool
+       let statusMessage: String
+       let statusCode: Int
+       let data: DataClass
+       let paginated: Bool
 
-    enum CodingKeys: String, CodingKey {
-
-        case success = "success"
-        case status_Message = "status_Message"
-        case status_Code = "status_Code"
-        case data = "data"
-        case paginated = "paginated"
+       enum CodingKeys: String, CodingKey {
+           case success
+           case statusMessage = "status_Message"
+           case statusCode = "status_Code"
+           case data, paginated
+       }
+    // MARK: - DataClass
+    struct DataClass: Codable {
+        let role: [String]
     }
+   }
 
-    
-
-}
+ 

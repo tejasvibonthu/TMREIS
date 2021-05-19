@@ -13,8 +13,7 @@ struct UserDefaultVars {
     static var isCitizen = UserDefaults.standard.value(forKey: "iscitizen") as? Bool
     static var fcmToken = UserDefaults.standard.value(forKey: "fcmToken") as? String
     static var userid = UserDefaults.standard.value(forKey: "userId") as? String
-
-//    static var deviceID = UIDevice.current.identifierForVendor?.uuidString
+    static var deviceID = UIDevice.current.identifierForVendor?.uuidString
 //    static var ImeiNo = UIDevice.current.identifierForVendor?.uuidString
 //    static var empID = UserDefaults.standard.value(forKey: "empID") as! String
 //    static var employeeName = UserDefaults.standard.value(forKey:"employeeName") as! String

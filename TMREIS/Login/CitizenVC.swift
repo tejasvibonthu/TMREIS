@@ -6,10 +6,12 @@
 //
 
 import UIKit
-
+import PKHUD
+import Alamofire
 class CitizenVC: UIViewController {
     var iscitizen:Bool = true
     var deviceIdIs:String?
+    var getIdProofModel:LoginModel?
     @IBOutlet weak var mobileNumberTF: UITextField!
     @IBOutlet weak var passwordTF: UITextField!
     override func viewDidLoad() {
@@ -20,44 +22,35 @@ class CitizenVC: UIViewController {
 
 
     @IBAction func loginbtnClick(_ sender: Any) {
-        guard let deviceID = UIDevice.current.identifierForVendor?.uuidString else {
-            return
-        }
-        self.deviceIdIs = deviceID
         iscitizen = true
         UserDefaults.standard.setValue(iscitizen, forKey: "isCitizen")
         UserDefaultVars.isCitizen = iscitizen
-        self.citizenLogin()
-
-//       if  loginValidationswithmobileNo(){
-//            //self.citizenLogin()
-//        }
-        
-        let vc = storyboards.Login.instance.instantiateViewController(withIdentifier: "OtpVC") as! OtpVC
-        self.navigationController?.pushViewController(vc, animated: true)
+       if  loginValidationswithmobileNo(){
+           self.citizenLogin()
+        }
     }
     func citizenLogin(){
           //  UserDefaults.standard.set(mo.text, forKey:"mobileNumber")
         let username = mobileNumberTF.text?.AESEncryption()
-        let password = "guest".AESEncryption() ?? ""
-   
         guard Reachability.isConnectedToNetwork() else {self.showAlert(message: noInternet);return}
-        NetworkRequest.makeRequest(type: LoginModel.self, urlRequest: Router.loginWithMobileNo(mobileNumber: username ?? "",password: password ,userName: username ?? "", deviceId: self.deviceIdIs ?? "", IMEI: self.deviceIdIs ?? "",fcmToken: UserDefaultVars.fcmToken ?? "" , deviceType: "IOS"), completion: { [weak self](result) in
+        NetworkRequest.makeRequest(type: LoginModel.self, urlRequest: Router.loginWithMobileNo(mobileNumber: username ?? "", deviceId: UserDefaultVars.deviceID ?? "", IMEI: UserDefaultVars.deviceID ?? "",fcmToken: UserDefaultVars.fcmToken ?? "" , deviceType: "IOS"), completion: { [weak self](result) in
                 switch result{
                 case  .success(let data):
                     // resetDefaults()
-                    let statuscode = data.status_Code
+                    let statuscode = data.statusCode
                     switch statuscode
                     {
                     case 200 :
-                        
-                        guard let userId = data.data?.userId else {return}
-                                UserDefaults.standard.set(userId, forKey: "userId")
-                        UserDefaultVars.userid = String(userId)
-                        if data.data?.mpin == "00" //mpin not set
+                        UserDefaults.standard.set(data.data.userID, forKey: "userId")
+                        UserDefaults.standard.set(data.data.token, forKey: "token")
+                        UserDefaultVars.userid = String(data.data.userID)
+                        if data.data.mpin == "00" //mpin not set
                         {
                             let vc = self?.storyboard?.instantiateViewController(withIdentifier: "OtpVC") as! OtpVC
-                            vc.otp = data.data?.otpMobile ?? ""
+                            vc.otp = data.data.otpMobile
+                            vc.mobileNumber = data.data.userName
+                        //    vc.otp = nullToNil(value: data.data.otpMobile) as? String
+
                           //  vc.mobileNumber = self?.usernameTxt.text!
                            // vc.tag = 2
                             self?.navigationController?.pushViewController(vc, animated: true)
@@ -66,24 +59,24 @@ class CitizenVC: UIViewController {
                         {
                             let vc = self?.storyboard?.instantiateViewController(withIdentifier: "UpdateMpinVC") as! UpdateMpinVC
                             self?.navigationController?.pushViewController(vc, animated: true)
-                            
+
                         }
                     case 201: //error message
-                        self?.showAlert(message: data.status_Message ?? serverNotResponding)
-                   
+                        self?.showAlert(message: data.statusMessage )
+
                     default:
-                        self?.showAlert(message: data.status_Message ?? serverNotResponding)
+                        self?.showAlert(message: data.statusMessage )
                     }
-                    
+
                 case .failure(let err):
                     print(err)
                     self?.showAlert(message: serverNotResponding)
-                    
+
                 }
-                
+
             })
-            
-        
+
+
     }
     func loginValidationswithmobileNo()->Bool {
         if  mobileNumberTF.text == ""{
@@ -95,78 +88,55 @@ class CitizenVC: UIViewController {
         {
             self.showAlert(message: "Please enter valid mobile number")
             return false
-        } else if passwordTF.text == ""{
-            self.showAlert(message: "Please enter password")
         }
         return true
     }
 }
+func nullToNil(value : AnyObject?) -> AnyObject? {
+    if value is NSNull {
+        return nil
+    } else {
+        return String.self as AnyObject
+    }
+}
 
-struct LoginModel : Codable {
-    let success : Bool?
-    let status_Message : String?
-    let status_Code : Int?
-    let data : LoginData?
-    let paginated : Bool?
+// MARK: - LoginModel
+struct LoginModel: Codable {
+    let success: Bool
+    let statusMessage: String
+    let statusCode: Int
+    let data: DataClass
+    let paginated: Bool
 
     enum CodingKeys: String, CodingKey {
-
-        case success = "success"
-        case status_Message = "status_Message"
-        case status_Code = "status_Code"
-        case data = "data"
-        case paginated = "paginated"
+        case success
+        case statusMessage = "status_Message"
+        case statusCode = "status_Code"
+        case data, paginated
     }
-
-
-    struct LoginData : Codable {
-        let employeeId : String?
-        let postId : String?
-        let employeeName : String?
-        let designation : String?
-        let mobileNumber : String?
-        let gender : String?
-        let otpMobile : String?
-        let name : String?
-        let userId : Int?
-        let userName : String?
-        let photopath : String?
-        let bloodgroup :String?
-       // let services : [String]?
-        let location : String?
-        let token : String?
-        let mpin : String?
-        let empId : Int?
-        let fcmtoken : String?
-        let emailId : String?
+    
+    // MARK: - DataClass
+    struct DataClass: Codable {
+        let employeeID, employeeName, designation, mobileNumber: String?
+        let gender, otpMobile: String?
+        let userID: Int
+        let userName, userType: String
+        let photopath, bloodgroup, services, location: String?
+        let token, fcmtoken: String
+        let emailid, empID: String?
+        let mpin: String
 
         enum CodingKeys: String, CodingKey {
-
-            case employeeId = "employeeId"
-            case postId = "postId"
-            case employeeName = "employeeName"
-            case designation = "designation"
-            case mobileNumber = "mobileNumber"
-            case gender = "gender"
-            case otpMobile = "otpMobile"
-            case name = "name"
-            case userId = "userId"
-            case userName = "userName"
-            case photopath = "photopath"
-         //   case services = "services"
-            case location = "location"
-            case token = "token"
-            case mpin = "mpin"
-            case empId = "empId"
-            case fcmtoken = "fcmtoken"
-            case bloodgroup = "bloodgroup"
-            case emailId = "emailid"
+            case employeeID = "employeeId"
+            case employeeName, designation, mobileNumber, gender, otpMobile
+            case userID = "userId"
+            case userName, userType, photopath, bloodgroup, services, location, token, fcmtoken, emailid
+            case empID = "empId"
+            case mpin
         }
-
-
-
     }
 
 
 }
+
 
